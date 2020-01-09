@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //在对象里面声明的function一般不称为函数，称之为方法，即对象实例的方法
+        //在对象 外面声明的function称为函数
+        function Stack(){
+            this.items = [];
+            // 入栈操作
+            Stack.prototype.push = function(item){
+                this.items.push(item);
+            }
+            // 出栈操作
+            //类实例添加方法 this.pop = function(){}    会比较占内存
+            //原型写法，个人理解类似于基类继承  减少内存的消耗
+            Stack.prototype.pop = function(){
+                return this.items.pop();
+            }
+            // 寻找栈顶
+            Stack.prototype.peek = function(){
+                return this.items[this.items.length-1];
+            }
+            // 栈是否位空
+            Stack.prototype.isEmpty = function(){
+                return this.items.length === 0;
+            }
+            // 栈的长度
+            Stack.prototype.size = function(){
+                return this.items.length;
+            }
+            // 打印栈数据
+            Stack.prototype.printf = function(){
+                console.log(this.items.toString());
+            }
+            // 栈的toString
+            Stack.prototype.toString = function(){
+                var resultString = '';
+                for(let i = 0; i < this.items.length; i++){
+                    resultString += this.items[i] + ' ';
+                }
+                return resultString;
+            }
+        }
+        var stack1 = new Stack();
+        // 打印栈是否为空
+        console.log(stack1.isEmpty());
+        // 数据入栈
+        for(let i = 0; i < 10; i++){
+            stack1.push(i);
+        }
+        stack1.printf();
+        console.log(stack1.size());
+        // 数据出栈
+        stack1.pop();
+        stack1.pop();
+        stack1.printf();
+        console.log(stack1.size());
+        // 打印栈顶
+        console.log(stack1.peek());
+        // 栈toString
+        console.log(stack1.toString());
+
+        //十进制转为二进制
+        function DectoBin(num){
+            var resultBin = '';
+            var stackBin = new Stack();
+            while(num > 0){
+                stackBin.push(num % 2);
+                num = Math.floor(num / 2);
+                //Math的api方法对于算法有些时候是很方便的，所以要去熟悉一下Math各个方法的作用
+                
+            }
+            while(stackBin.isEmpty()){
+                resultBin += stackBin.pop();
+            }
+            return resultBin;
+        }
+        console.log(DectoBin(255));
+    </script>
+</body>
+</html>
