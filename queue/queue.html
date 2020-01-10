@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Queue(){
+            //属性
+            this.items = [];
+            //方法
+            Queue.prototype.enQueue = function(item){
+                this.items.push(item);
+            }
+            Queue.prototype.deQueue = function(){
+                return this.items.shift();
+            }
+            Queue.prototype.front = function(){
+                return this.items[0];
+            }
+            Queue.prototype.isEmpty = function(){
+                return this.items.length === 0;
+            }
+            Queue.prototype.size = function(){
+                return this.items.length;
+            }
+            Queue.prototype.toString = function(){
+                var resultString = '';
+                for(let i = 0; i < this.items.length; i++){
+                    resultString += this.items[i] + ' ';
+                }
+                return resultString;
+            }
+        }
+
+        // var queue1 = new Queue();
+        // console.log(queue1.isEmpty());
+        // for(let i = 0; i < 10; i++){
+        //     queue1.enQueue(i);
+        // }
+        // console.log(queue1.isEmpty());
+        // console.log(queue1.size());
+        // console.log(queue1.toString());
+    
+        // console.log(queue1.front());
+
+        // queue1.deQueue();
+        // queue1.deQueue();
+        // console.log(queue1.size());
+        // console.log(queue1.toString());
+
+        //击鼓传花
+        function passTheFlower(queue2,dieOut){
+            var noDieout;
+            var count = dieOut;
+            console.log(queue2.size());
+            while(queue2.size() > 1){
+                //第一种写法   个人的写法，感觉没有第二种效率高，因为判断语句的原因
+                // while(count){
+                //     if(count != 1){
+                //         queue2.enQueue(queue2.deQueue());
+                //     }else{
+                //         queue2.deQueue();
+                //     }
+                //     count--;
+                // }
+                // count = dieOut;
+                //第二种写法
+                for(var i = 0; i < dieOut-1; i++){
+                    queue2.enQueue(queue2.deQueue());
+                }
+                queue2.deQueue();
+
+
+                console.log(queue2.toString());
+            }
+            return queue2.front();
+        }
+        var queue2 = new Queue();
+        queue2.enQueue('a');
+        queue2.enQueue('b');
+        queue2.enQueue('c');
+        queue2.enQueue('d');
+        queue2.enQueue('e');
+        queue2.toString();
+        console.log(passTheFlower(queue2,5));
+    </script>
+</body>
+</html>
